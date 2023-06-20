@@ -1,7 +1,6 @@
 
 (async function(){
   const src = new URL(import.meta.url);
-  // get params from script source url
   const search = new URLSearchParams(src.search);
   const url = `http://localhost:3006?username=${search.get("username")}`;
   const headers = new Headers();
@@ -16,10 +15,30 @@
   
   const target = document.getElementById("app");
 
+  const { body } = await fetch(request);
+
+  const reader = body?.getReader();
   
-  const raw = await fetch(request);
-  // parse response as text/html
-  const html = await raw.text();
-  // insert HTML into the target
+  if(!reader) return
+  
+  const stream = new ReadableStream({
+      start(controller) {
+        function push() {
+          reader?.read().then(({ done, value }) => {
+            if (done) {
+              controller.close();
+              return;
+            }
+            controller.enqueue(value);
+            push();
+          });
+        }
+
+        push();
+      },
+    });
+
+    const html = await new Response(stream, { headers: { "Content-Type": "text/html" } }).text()
+
   if(target) target.innerHTML = html
 })();

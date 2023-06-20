@@ -15,7 +15,16 @@ export default async function indexController(fastify: FastifyInstance) {
 
     const { username } = _request.query
 
-    const html = `<h3>Test ${username}</h3>
+    if(!username) { 
+      await reply
+        .status(500)
+        .header("Access-Control-Allow-Origin", "*")
+        .header("Access-Control-Allow-Methods", "GET")
+        .header("Access-Control-Allow-Headers", "Authorization, Content-Type")
+        .send(new Error("No username provided."))
+    }
+
+    const html = `<h3>Username Param: ${username}</h3>
                   <a href="https://google.com">A link to google</a>
                   <button onclick="alert('You clicked the button')">Alert</button>`
 
