@@ -16,4 +16,6 @@ This repo aims to explore an architecture that utilizes the [Web Streams API](ht
 
 <img width="600" alt="Xnapper-2023-06-19-15 31 22" src="https://github.com/stordahl/ssr-widget-experiment/assets/60861572/2c0617f4-4a61-4e1d-81ed-c2b2772db8fe">
 
+## Running the prototype
 
+Simply clone the repo, cd into it, and run `pnpm install && pnpm run dev` to run the protoype's server and client.
