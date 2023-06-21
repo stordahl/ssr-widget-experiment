@@ -6,6 +6,8 @@
 
 The current architecture for third-party web apps relies heavily on the client device's resources. With the Streams API landing in all major browsers, I want to attempt to create a new, stream based architecture to enable massively smaller client bundles and allow for third-party apps to take full advantage of edge deployments.
 
+> Currently, this prototype relies on a full node process, meaning it isn't "edge ready"
+
 ## Architecture
 
 Below is a visualization of the tasks shared by the client and server in a typical third party application. Traditionally, an application will be downloaded onto the page, then some code executes to spin up the application. This computation usually includes fetching data from one or many remote APIs, executing some business logic, creating HTML, and then adding this HTML to the DOM.
